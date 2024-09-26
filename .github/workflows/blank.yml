@@ -20,7 +20,9 @@ jobs:
           git clone --single-branch --branch main https://github.com/ashwini-m1488/interview.git temp-repo
           cd temp-repo
           
-          # Step 3: Remove excluded files and folders
+      # Step 3: Remove excluded files and folders
+      - name: Clone GitB
+        run: |
           rm -f Folder1/File1.txt
           rm -rf Folder2
 
@@ -40,6 +42,8 @@ jobs:
       # Step 6: Commit changes if there are any
       - name: Commit and Push changes
         run: |
+          git config --global user.name "rahulrajanpk"
+          git config --global user.email "rahulrajanpk@gmail.com"
           git add .
           git commit -m "Sync from GitB excluding specific files and folders" || echo "No changes to commit"
           git push origin sample2  # Push back to GitA's sample2 branch
