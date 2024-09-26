@@ -11,7 +11,7 @@ jobs:
 
     steps:
       # Step 1: Checkout the current repo (gitB)
-      - name: Checkout sample2
+      - name: Checkout main
         uses: actions/checkout@v2
 
       # Step 2: Clone gitA repository
