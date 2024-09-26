@@ -34,8 +34,8 @@ jobs:
       # Step 5: Configure Git user
       - name: Configure Git user
         run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
+    
+          git config --global user.email "rahulrajanpk@gmail.com"
 
       # Step 6: Commit changes if there are any
       - name: Commit and Push changes
