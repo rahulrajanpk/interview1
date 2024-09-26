@@ -1,0 +1,41 @@
+name: Sync Repository and Exclude Folder
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to main branch
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the current repo (gitB)
+      - name: Checkout sample2
+        uses: actions/checkout@v2
+
+      # Step 2: Clone gitA repository
+      - name: Clone gitA
+        run: |
+          git clone https://github.com/ashwini-m1488/interview.git temp-repo
+          cd temp-repo
+          # Step 3: Remove Folder1
+          rm -rf Folder1
+
+      # Step 4: Copy content to the current repository (gitB)
+      - name: Copy contents to gitB
+        run: |
+          cp -r temp-repo/* .  # Copy everything except Folder1
+
+      # Step 5: Configure Git user
+      - name: Configure Git user
+        run: |
+         
+          git config --global user.email "rahulrajanpk@gmail.com"
+
+      # Step 6: Commit changes if there are any
+      - name: Commit and Push changes
+        run: |
+          git add .
+          git commit -m "Sync from gitA excluding Folder1" || echo "No changes to commit"
+          git push origin main  # Push back to gitB's main branch
