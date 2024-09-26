@@ -54,6 +54,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: sample2  # Specify the branch you want to sync changes into
+          fetch-depth: 0
 
       # Step 2: Clone the parent repo (GitB)
       - name: Clone GitB
