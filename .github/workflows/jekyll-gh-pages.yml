@@ -49,3 +49,42 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+       # Step 1: Checkout the current repo (GitA)
+      - name: Checkout GitA
+        uses: actions/checkout@v2
+        with:
+          ref: sample2  # Specify the branch you want to sync changes into
+
+      # Step 2: Clone the parent repo (GitB)
+      - name: Clone GitB
+        run: |
+          git clone --single-branch --branch main https://github.com/ashwini-m1488/interview.git temp-repo
+          cd temp-repo
+          
+      # Step 3: Remove excluded files and folders
+      - name: Clone GitB
+        run: |
+          rm -f Folder1/File1.txt
+          rm -rf Folder2
+
+      # Step 4: Copy content to GitA
+      - name: Copy contents to GitA
+        run: |
+          cp -r temp-repo/* .  # Copy everything from temp-repo to GitA
+          # Ensure you don't copy the excluded files/folders
+          cp -r temp-repo/.[!.]* .  # Copy hidden files (if any)
+
+      # Step 5: Configure Git user
+      - name: Configure Git user
+        run: |
+          git config --global user.name "rahulrajanpk"
+          git config --global user.email "rahulrajanpk@gmail.com"
+
+      # Step 6: Commit changes if there are any
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "rahulrajanpk"
+          git config --global user.email "rahulrajanpk@gmail.com"
+          git add .
+          git commit -m "Sync from GitB excluding specific files and folders" || echo "No changes to commit"
+          git push origin sample2  # Push back to GitA's sample2 branch
